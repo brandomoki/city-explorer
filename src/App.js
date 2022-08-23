@@ -12,6 +12,8 @@ class App extends React.Component {
     this.state = {
       cityData: [],
       city: '',
+      longitude: '',
+      lattitude: '',
 
 
     }
@@ -34,10 +36,11 @@ getCityData = async (e) => {
   let cityData = await axios.get(url);
   
 
-  this.setState({
-    cityData: cityData,
-  })
-  console.log(cityData.data[0].lat);
+  this.setState({cityData: cityData.data[0]});
+  this.setState({longitude: cityData.data[0].lon});
+  this.setState({lattitude: cityData.data[0].lat});
+  this.setState({city: cityData.data[0].display_name});
+  console.log(this.state);
 }
 
 
@@ -58,9 +61,9 @@ render() {
 
     <Card style={{ width: '18rem' }}>
       <ListGroup variant="flush">
-        <ListGroup.Item>{}</ListGroup.Item>
-        <ListGroup.Item>{}</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+        <ListGroup.Item>{this.state.longitude}</ListGroup.Item>
+        <ListGroup.Item>{this.state.lattitude}</ListGroup.Item>
+        <ListGroup.Item>{this.state.city}</ListGroup.Item>
       </ListGroup>
     </Card>
     
