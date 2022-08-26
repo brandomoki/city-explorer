@@ -42,7 +42,12 @@ getCityData = async (e) => {
     let weatherUrl = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
   
     let weatherData = await axios.get(weatherUrl);
-    console.log(weatherData);
+    console.log('weatherData', weatherData);
+
+    // let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_SERVER}&page=1&query=${cityData.data[0].city_name}`;
+
+    // let movieData = await axios.get(movieUrl);
+    // console.log('movie--------------------', movieData);
    
   
     this.setState({cityData: cityData.data[0]});
@@ -50,6 +55,7 @@ getCityData = async (e) => {
     this.setState({lattitude: cityData.data[0].lat});
     this.setState({city: cityData.data[0].display_name});
     this.setState({weatherData: weatherData.data});
+    // this.setState({movieData: movieData.data});
   }
   catch(error) {
     this.setState({
@@ -64,7 +70,7 @@ getCityData = async (e) => {
 
 
 render() {
-  // console.log('this is my log ----------', this.getCityData);
+  console.log('this is my log ----------', this.state.movieData );
 
 
 
@@ -97,13 +103,13 @@ render() {
           {this.state.weatherData && this.state.weatherData.map((value, index) => {
             return (<li key={index}>{value.description}</li>)
           })}
-          </ul>
+        </ul>
   
         }
+        
       <Card style={{ width: '18rem' }}>
         <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.lattitude},${this.state.longitude}&zoom=13&size=440x400`} alt={this.state.city} />
-        {/* 
-      https://maps.locationiq.com/v3/staticmap?key=pk.5ce96405abcbed5189fa03c56a6786d4&center={this.state.lattitude},{this.state.longitude}&size=600x600&zoom=14&path=fillcolor:%2390EE90|weight:2|color:blue| */}
+        
 
         <Card.Body>
           <Card.Title>{this.state.city}</Card.Title>
